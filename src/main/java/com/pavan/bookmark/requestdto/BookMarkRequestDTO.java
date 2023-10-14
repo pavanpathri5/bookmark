@@ -39,11 +39,11 @@ public class BookMarkRequestDTO {
         this.user = user;
     }
 
-    public String getTag() {
+    public Tag getTag() {
         return tag;
     }
 
-    public void setTag(String tag) {
+    public void setTag(Tag tag) {
         this.tag = tag;
     }
 
@@ -56,6 +56,6 @@ public class BookMarkRequestDTO {
 
     @Column(length = 512)
     private String link;
-    private String user;
-    private String tag;
+    private User user;
+    private Tag tag;
 }
