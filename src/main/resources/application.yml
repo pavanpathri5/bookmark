@@ -1,0 +1,24 @@
+server:
+  port: 8050
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/bookmark
+    username: bookmark
+    password: bookmark
+    driver-class-name: org.postgresql.Driver
+    schema: public
+  jpa:
+    data-platform: org.hibernate.dialect.PostgteSQLDialect
+    hibernate:
+      ddl-auto: update # You can choose 'create', 'update', or 'validate'
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+  web:
+    cors:
+      allowed-origins: "*"
+      allowed-methods: "GET,POST,PUT,DELETE"
+logging:
+  file: /path/to/your/log/file/myapp.log
+  level:
+    root: INFO
