@@ -51,6 +51,14 @@ public class BookmarkController {
         response.setHeader("Location", bookmarkres.getLink());
     }
 
+    @RequestMapping(value = "/searchbookmarks",method = RequestMethod.GET)
+    public ResponseEntity<?> getAllBookmarks(@RequestParam("page") int page,
+                                             @RequestParam("pageSize") int pageSize,@RequestParam("searchterm") String searchTerm) {
+        Pageable pageable = PageRequest.of(page, pageSize);
+        List<BookMarkResponseDTO> bookmarkres=bookmarkService.searchBookmark(searchTerm,pageable);
+        return ResponseEntity.status(HttpStatus.OK).body(bookmarkres);
+    }
+
 
 
 

@@ -15,4 +15,6 @@ public interface BookmarkService {
     List<BookMarkResponseDTO> getallBookmarks(Pageable page);
 
     BookMarkResponseDTO getBookmark(String bookmarkname);
+
+    List<BookMarkResponseDTO> searchBookmark(String searchTerm,Pageable page);
 }
