@@ -62,8 +62,9 @@ public class BookmarkServiceImpl implements BookmarkService {
     }
 
     @Override
-    public List<BookMarkResponseDTO> getallBookmarks(Pageable page) {
+    public Page<BookMarkResponseDTO> getallBookmarks(Pageable page) {
         Page<Bookmark> bookmarks=bookmarkRepository.findAll(page);
+        Page<BookMarkResponseDTO> responseDTOS=this.convertPageToDTO(bookmarks);
         List<BookMarkResponseDTO> res=new ArrayList<>();
         for(Bookmark bookmark:bookmarks){
             BookMarkResponseDTO brt=new BookMarkResponseDTO();
@@ -81,7 +82,7 @@ public class BookmarkServiceImpl implements BookmarkService {
             brt.setTag(trd);
             res.add(brt);
         }
-        return res;
+        return responseDTOS;
     }
 
     @Override
@@ -106,6 +107,7 @@ public class BookmarkServiceImpl implements BookmarkService {
     @Override
     public List<BookMarkResponseDTO> searchBookmark(String searchTerm,Pageable page) {
         Page<Bookmark> bookmarks=bookmarkRepository.searchAllFields(searchTerm,page);
+        Page<BookMarkResponseDTO> responseDTOS=this.convertPageToDTO(bookmarks);
         List<BookMarkResponseDTO> res=new ArrayList<>();
         for(Bookmark bookmark:bookmarks){
             BookMarkResponseDTO brt=new BookMarkResponseDTO();
@@ -124,5 +126,27 @@ public class BookmarkServiceImpl implements BookmarkService {
             res.add(brt);
         }
         return res;
+    }
+
+    public Page<BookMarkResponseDTO> convertPageToDTO(Page<Bookmark> entityPage) {
+        return entityPage.map(this::convertEntityToDTO);
+    }
+
+    private BookMarkResponseDTO convertEntityToDTO(Bookmark bookmark) {
+        BookMarkResponseDTO brt = new BookMarkResponseDTO();
+        UserResponseDTO urd=new UserResponseDTO();
+        TagResponseDTO trd=new TagResponseDTO();
+        brt.setId(bookmark.getId());
+        brt.setName(bookmark.getName());
+        brt.setLink(bookmark.getLink());
+        brt.setDescription(bookmark.getDescription());
+        urd.setId(bookmark.getUser().getId());
+        urd.setEmail(bookmark.getUser().getEmail());
+        brt.setUser(urd);
+        trd.setName(bookmark.getTag().getName());
+        trd.setId(bookmark.getTag().getId());
+        brt.setTag(trd);
+        // Map other fields
+        return brt;
     }
 }

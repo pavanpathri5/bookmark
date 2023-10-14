@@ -12,7 +12,7 @@ public interface BookmarkService {
     BookMarkResponseDTO createBookmark(Bookmark bookmark);
     Bookmark bookmarkmapping(BookMarkRequestDTO bookMarkRequestDTO);
 
-    List<BookMarkResponseDTO> getallBookmarks(Pageable page);
+    Page<BookMarkResponseDTO> getallBookmarks(Pageable page);
 
     BookMarkResponseDTO getBookmark(String bookmarkname);
 

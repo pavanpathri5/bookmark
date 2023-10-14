@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -34,8 +35,8 @@ public class BookmarkController {
     public ResponseEntity<?> getAllBookmarks(@RequestParam("page") int page,
                                              @RequestParam("pageSize") int pageSize) {
         Pageable pageable = PageRequest.of(page, pageSize);
-        List<BookMarkResponseDTO> bookmarkres=bookmarkService.getallBookmarks(pageable);
-        return ResponseEntity.status(HttpStatus.OK).body(bookmarkService.getallBookmarks(pageable));
+        Page<BookMarkResponseDTO> bookmarkres=bookmarkService.getallBookmarks(pageable);
+        return ResponseEntity.status(HttpStatus.OK).body(bookmarkres);
     }
 
     @RequestMapping(value = "/getbookmark/{bookmarkname}",method = RequestMethod.GET)
