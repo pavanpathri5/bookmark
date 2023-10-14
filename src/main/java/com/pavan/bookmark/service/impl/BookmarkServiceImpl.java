@@ -9,6 +9,8 @@ import com.pavan.bookmark.responsedto.BookMarkResponseDTO;
 import com.pavan.bookmark.responsedto.TagResponseDTO;
 import com.pavan.bookmark.responsedto.UserResponseDTO;
 import com.pavan.bookmark.service.BookmarkService;
+import com.pavan.bookmark.service.TagService;
+import com.pavan.bookmark.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,6 +25,10 @@ import java.util.List;
 public class BookmarkServiceImpl implements BookmarkService {
     @Autowired
     BookmarkRepository bookmarkRepository;
+    @Autowired
+    UserService userService;
+    @Autowired
+    TagService tagService;
     @Override
     public BookMarkResponseDTO createBookmark(Bookmark newbookmark) {
         UserResponseDTO userResponseDTO=new UserResponseDTO();
@@ -45,16 +51,12 @@ public class BookmarkServiceImpl implements BookmarkService {
     @Override
     public Bookmark bookmarkmapping(BookMarkRequestDTO bookMarkRequestDTO) {
         Bookmark bookmark=new Bookmark();
-        User user=new User();
-        Tag tag=new Tag();
         bookmark.setName(bookMarkRequestDTO.getName());
         bookmark.setDescription(bookMarkRequestDTO.getDescription());
         bookmark.setLink(bookMarkRequestDTO.getLink());
-        user.setId(bookMarkRequestDTO.getUser().getId());
-        user.setEmail(bookMarkRequestDTO.getUser().getEmail());
+        User user=userService.finduser(bookMarkRequestDTO.getUser());
+        Tag tag=tagService.findTag(bookMarkRequestDTO.getTag());
         bookmark.setUser(user);
-        tag.setId(bookMarkRequestDTO.getTag().getId());
-        tag.setName(bookMarkRequestDTO.getTag().getName());
         bookmark.setTag(tag);
         return bookmark;
     }

@@ -35,7 +35,7 @@ public class BookmarkController {
                                              @RequestParam("pageSize") int pageSize) {
         Pageable pageable = PageRequest.of(page, pageSize);
         List<BookMarkResponseDTO> bookmarkres=bookmarkService.getallBookmarks(pageable);
-        return ResponseEntity.status(HttpStatus.OK).body(bookmarkres);
+        return ResponseEntity.status(HttpStatus.OK).body(bookmarkService.getallBookmarks(pageable));
     }
 
     @RequestMapping(value = "/getbookmark/{bookmarkname}",method = RequestMethod.GET)
