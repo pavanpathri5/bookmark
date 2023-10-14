@@ -29,4 +29,9 @@ public class UserServiceImpl implements UserService {
         userResponseDTO.setId(user.getId());
         return userResponseDTO;
     }
+
+    @Override
+    public User finduser(String email) {
+        return userRepository.findByEmail(email);
+    }
 }

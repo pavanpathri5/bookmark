@@ -7,6 +7,17 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 
 public class BookMarkRequestDTO {
+    @NotEmpty(message = "The name is required.")
+    @Column(unique = true,nullable=false,length = 512)
+    private String name;
+
+    @Column(length = 512)
+    private String description;
+
+    @Column(length = 512)
+    private String link;
+    private String user;
+    private String tag;
     public String getName() {
         return name;
     }
@@ -31,31 +42,20 @@ public class BookMarkRequestDTO {
         this.link = link;
     }
 
-    public User getUser() {
+    public String getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(String user) {
         this.user = user;
     }
 
-    public Tag getTag() {
+    public String getTag() {
         return tag;
     }
 
-    public void setTag(Tag tag) {
+    public void setTag(String tag) {
         this.tag = tag;
     }
 
-    @NotEmpty(message = "The name is required.")
-    @Column(unique = true,nullable=false,length = 512)
-    private String name;
-
-    @Column(length = 512)
-    private String description;
-
-    @Column(length = 512)
-    private String link;
-    private User user;
-    private Tag tag;
 }

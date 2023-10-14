@@ -8,4 +8,5 @@ public interface UserService {
    User usermapping(UserRequestDTO user);
    UserResponseDTO saveUser(User user);
 
+   User finduser(String email);
 }
