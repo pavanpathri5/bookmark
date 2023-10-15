@@ -65,7 +65,7 @@ public class BookmarkServiceImpl implements BookmarkService {
     public Page<BookMarkResponseDTO> getallBookmarks(Pageable page) {
         Page<Bookmark> bookmarks=bookmarkRepository.findAll(page);
         Page<BookMarkResponseDTO> responseDTOS=this.convertPageToDTO(bookmarks);
-        List<BookMarkResponseDTO> res=new ArrayList<>();
+       /* List<BookMarkResponseDTO> res=new ArrayList<>();
         for(Bookmark bookmark:bookmarks){
             BookMarkResponseDTO brt=new BookMarkResponseDTO();
             UserResponseDTO urd=new UserResponseDTO();
@@ -81,7 +81,7 @@ public class BookmarkServiceImpl implements BookmarkService {
             trd.setId(bookmark.getTag().getId());
             brt.setTag(trd);
             res.add(brt);
-        }
+        }*/
         return responseDTOS;
     }
 
@@ -105,10 +105,10 @@ public class BookmarkServiceImpl implements BookmarkService {
     }
 
     @Override
-    public List<BookMarkResponseDTO> searchBookmark(String searchTerm,Pageable page) {
+    public Page<BookMarkResponseDTO> searchBookmark(String searchTerm,Pageable page) {
         Page<Bookmark> bookmarks=bookmarkRepository.searchAllFields(searchTerm,page);
         Page<BookMarkResponseDTO> responseDTOS=this.convertPageToDTO(bookmarks);
-        List<BookMarkResponseDTO> res=new ArrayList<>();
+       /* List<BookMarkResponseDTO> res=new ArrayList<>();
         for(Bookmark bookmark:bookmarks){
             BookMarkResponseDTO brt=new BookMarkResponseDTO();
             UserResponseDTO urd=new UserResponseDTO();
@@ -124,8 +124,8 @@ public class BookmarkServiceImpl implements BookmarkService {
             trd.setId(bookmark.getTag().getId());
             brt.setTag(trd);
             res.add(brt);
-        }
-        return res;
+        }*/
+        return responseDTOS;
     }
 
     public Page<BookMarkResponseDTO> convertPageToDTO(Page<Bookmark> entityPage) {

@@ -46,21 +46,22 @@ public class BookmarkController {
     }
 
     @RequestMapping(value = "/{bookmarkname}",method = RequestMethod.GET)
-    public void StringRedirectionURL(@PathVariable String bookmarkname, HttpServletResponse response) {
+    public String StringRedirectionURL(@PathVariable String bookmarkname, HttpServletResponse response) {
         BookMarkResponseDTO bookmarkres=bookmarkService.getBookmark(bookmarkname);
-        response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
-        response.setHeader("Location", bookmarkres.getLink());
+        if(bookmarkres.getTag().getName().equals("link")){
+            //response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
+            response.setHeader("Location", bookmarkres.getLink());
+            return "";
+        }
+        else
+            return bookmarkres.getLink();
     }
 
     @RequestMapping(value = "/searchbookmarks",method = RequestMethod.GET)
     public ResponseEntity<?> getAllBookmarks(@RequestParam("page") int page,
                                              @RequestParam("pageSize") int pageSize,@RequestParam("searchterm") String searchTerm) {
         Pageable pageable = PageRequest.of(page, pageSize);
-        List<BookMarkResponseDTO> bookmarkres=bookmarkService.searchBookmark(searchTerm,pageable);
+        Page<BookMarkResponseDTO> bookmarkres=bookmarkService.searchBookmark(searchTerm,pageable);
         return ResponseEntity.status(HttpStatus.OK).body(bookmarkres);
     }
-
-
-
-
 }
