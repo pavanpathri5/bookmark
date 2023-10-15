@@ -25,11 +25,11 @@ public class UserRequestDTO {
     }
 
     @NotEmpty(message = "The email is required.")
-    @Email(message = "The email is not a valid email.")
+    //@Email(message = "The email is not a valid email.")
     @Column(unique = true)
     private String email;
 
-    @NotBlank(message = "The password is required.")
-    @Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!*()]).{8,}$", message = "Password must be 8 characters long and combination of uppercase letters, lowercase letters, numbers, special characters.")
+    //@NotBlank(message = "The password is required.")
+    //@Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!*()]).{8,}$", message = "Password must be 8 characters long and combination of uppercase letters, lowercase letters, numbers, special characters.")
     private String password;
 }
