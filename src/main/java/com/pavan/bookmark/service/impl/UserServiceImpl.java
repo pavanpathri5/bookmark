@@ -8,6 +8,8 @@ import com.pavan.bookmark.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import static java.util.Objects.isNull;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -32,6 +34,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User finduser(String email) {
-        return userRepository.findByEmail(email);
+        User user=userRepository.findByEmail(email);
+        if(user!=null){
+            return user;
+        }
+        else{
+            User newUser = new User();
+            newUser.setEmail(email);
+            return userRepository.save(newUser);
+        }
     }
 }

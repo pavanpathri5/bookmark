@@ -4,6 +4,7 @@ import com.pavan.bookmark.model.user.Bookmark;
 import com.pavan.bookmark.requestdto.BookMarkRequestDTO;
 import com.pavan.bookmark.responsedto.BookMarkResponseDTO;
 import com.pavan.bookmark.service.BookmarkService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
@@ -25,7 +24,8 @@ public class BookmarkController {
     @Autowired
     BookmarkService bookmarkService;
     @RequestMapping(value = "/createbookmark",method = RequestMethod.POST)
-    public ResponseEntity<?> createProduct(@Valid @RequestBody BookMarkRequestDTO newbookmark) {
+    @Operation(summary = "create new Bookmark ", description = "This operation creates new bookmark")
+    public ResponseEntity<?> createBookmark(@Valid @RequestBody BookMarkRequestDTO newbookmark) {
         Bookmark bookmark=bookmarkService.bookmarkmapping(newbookmark);
         BookMarkResponseDTO bookmarresponse=bookmarkService.createBookmark(bookmark);
         return ResponseEntity.status(HttpStatus.OK).body(bookmarresponse);
@@ -63,5 +63,11 @@ public class BookmarkController {
         Pageable pageable = PageRequest.of(page, pageSize);
         Page<BookMarkResponseDTO> bookmarkres=bookmarkService.searchBookmark(searchTerm,pageable);
         return ResponseEntity.status(HttpStatus.OK).body(bookmarkres);
+    }
+
+    @RequestMapping(value="/removebookmark/{id}",method = RequestMethod.DELETE)
+    public ResponseEntity<?> removeBookmark(@PathVariable Long id){
+        bookmarkService.deleteBookmark(id);
+        return ResponseEntity.ok("Resource with ID " + id + " has been deleted");
     }
 }
