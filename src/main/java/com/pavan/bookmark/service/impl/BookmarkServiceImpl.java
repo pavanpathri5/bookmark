@@ -128,6 +128,11 @@ public class BookmarkServiceImpl implements BookmarkService {
         return responseDTOS;
     }
 
+    @Override
+    public void deleteBookmark(Long id) {
+       bookmarkRepository.deleteById(id);
+    }
+
     public Page<BookMarkResponseDTO> convertPageToDTO(Page<Bookmark> entityPage) {
         return entityPage.map(this::convertEntityToDTO);
     }

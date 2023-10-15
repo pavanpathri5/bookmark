@@ -17,4 +17,8 @@ public interface BookmarkService {
     BookMarkResponseDTO getBookmark(String bookmarkname);
 
     Page<BookMarkResponseDTO> searchBookmark(String searchTerm,Pageable page);
+
+    void deleteBookmark(Long id);
+
+
 }
